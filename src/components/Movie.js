@@ -19,4 +19,10 @@ function Movie({ title, coverImg, genres, rating, summary, year }) {
   );
 }
 
+Movie.propTypes = {
+  title:PropTypes.string.isRequired,
+  
+}
+
+
 export default Movie;

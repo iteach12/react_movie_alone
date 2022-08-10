@@ -7,7 +7,7 @@ function Home() {
   const [movies, setMovies] = useState([]);
   const getMoviesByRating = async () => {
     const response = await fetch(
-      'https://yts.mx/api/v2/list_movies.json?limit=50&minimum_rating=8&sort_by=rating&with_rt_ratings=true'
+      'https://yts.mx/api/v2/list_movies.json?minimum_rating=8&sort_by=rating'
     );
     const json = await response.json();
     setMovies(json.data.movies);
@@ -15,35 +15,44 @@ function Home() {
   };
   const getMoviesByYear = async () => {
     const response = await fetch(
-      'https://yts.mx/api/v2/list_movies.json?limit=50&sort_by=year'
+      'https://yts.mx/api/v2/list_movies.json?sort_by=year'
     );
     const json = await response.json();
     setMovies(json.data.movies);
     setLoading(false);
   };
-  function onClickRating() {
-    setLoading(true);
-    setChoice('rating');
-  }
-  function onClickYear() {
-    setLoading(true);
-    setChoice('year');
-  }
-  useEffect(() => {
-    if (choice === 'rating') {
+  function onClick(event) {
+    
+    const btnText = event.target.innerText;
+    if (btnText === 'Rating') {
+      setLoading(true);
       getMoviesByRating();
-    } else if (choice === 'year') {
+      setChoice('rating');
+    } else if (btnText === 'Year') {
+      setLoading(true);
       getMoviesByYear();
-    }
-  }, [choice]);
+      setChoice('year');
+    }  else{
+      console.log('nothing');
+    } 
+    
+  }
+  useEffect(()=>{
+    getMoviesByRating();
+  }, []);
+  // useEffect(()=>{
 
+  // }, [choice]);
+  
   console.log(movies);
   console.log(typeof movies);
   return (
     <section className="container">
       <div>
-        <button onClick={onClickRating}>Rating</button>
-        <button onClick={onClickYear}>year</button>
+        <button onClick={
+          onClick}>Rating</button>
+        <button onClick={
+          onClick}>Year</button>
       </div>
 
       {loading ? (
