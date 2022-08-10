@@ -3,11 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Movie({ title, coverImg, genres, rating, summary, year, id }) {
   return (
-    <div
-      style={{
-        backgroundColor: 'teal',
-      }}
-    >
+    <div>
       <Link to={`/movie/${id}`}>
         <h1>{title}</h1>
       </Link>
